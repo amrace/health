@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Patient Record</title>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+</head>
+<body>
+
+<!-- Navigation bar and title of page-->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <a class="navbar-brand" href="#" >Patient DataTable</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- The list to show the patient record in datatable -->
+
+<table id="example" class="table table-striped table-bordered" style="width:100%" >
+        <thead>
+            <tr>
+            	<th>Id</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Age</th>
+                <th>Sex</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>HistoryOfPatient</th> 
+                <!-- <th>FirstName</th>
+                <th>LastName</th>
+                <th>Age</th>
+                <th>Sex</th>
+                <th>Phone</th>
+                <th>Address</th>  --> 
+                <th>Action</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+          <tbody>
+            <tr th:each="patient: ${patient}">
+            	<td><span th:text="${patient.id}"></span></td>
+                <td><span th:text="${patient.firstName}"></span></td>
+                <td><span th:text="${patient.lastName}"></span></td>
+                <td><span th:text="${patient.age}"></span></td>
+                <td>nothing</td>
+                <td><span th:text="${patient.phone}"></span></td>
+                <td><span th:text="${patient.address}"></span></td>
+                <td><span th:text="${patient.historyOfPatient}"></span></td>
+                <!-- <td><span th:text="${patient.firstName}"></span></td>
+                <td><span th:text="${patient.lastName}"></span></td>
+                <td><span th:text="${patient.age}"></span></td>
+                <td>nothing</td>
+                <td><span th:text="${patient.phone}"></span></td>
+                <td><span th:text="${patient.address}"></span></td>
+                <td><span th:text="${patient.historyOfPatient}"></span></td> -->
+                <td><button type="button" class="btn btn-primary">Edit</button></td>
+                <td><button type="button" class="btn btn-danger">Delete</button></td>
+            </tr>
+		</tbody>
+</table>
+
+<!-- Pop up modal to edit the patient record -->
+
+						<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+							aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Edit Patient record</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+									
+										<form id="editTable" action="/update" method="post">
+											<input id="editid" name="id" type="hidden"><br>
+											
+											<label>First Name</label> <input class="form-control"
+												type="text" id="editfirstName" name="firstName"><br>
+												
+											<label>Last Name</label> <input class="form-control"
+												type="text" id="editlastName" name="lastName"><br>
+												
+											<label>Age</label> <input class="form-control"
+												type="text" id="editage" name="age"><br>
+												
+											<label>Sex</label> <input class="form-control" 
+												type="text" id="editsex" name="sex"><br>	
+												
+											<label>Phone</label> <input class="form-control" type="text"
+												id="editphone" name="phone"><br> 
+																	
+											<label>Address</label> <input class="form-control"
+												type="text" id="editaddress" name="address"><br>
+												
+											<label>History of patient</label> <input class="form-control"
+												type="text" id="edithistoryOfPatient" name="historyOfPatient"><br>
+												
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-dismiss="modal">Cancel</button>
+												<button id="btnClick" type="submit" class="btn btn-primary">Update</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+				<div class="tab-pane fade" id="profile" role="tabpanel"	aria-labelledby="profile-tab">...</div>
+				<div class="tab-pane fade" id="contact" role="tabpanel"	aria-labelledby="contact-tab">...</div>
+
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+					<form id="editTable">
+						<input id="editId"><br> <input id="editFullName"><br>
+						<input id="editAddress"><br> <input id="editPhone">
+					</form>
+
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+<!-- JS for datatable -->
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
+<script type="text/javascript">		            
+       $(document).ready(function() {
+    $('#example').DataTable();
+} );    </script>
+
+
+<script type="text/javascript">
+		$(document)
+				.ready(
+						function() {
+							var table = $('#example')
+									.DataTable(
+											{
+												ajax : {
+													url : '/getAll',
+													dataSrc : ''
+												},
+												columns : [
+														{
+															data : 'id'
+														},
+														{
+															data : 'firstName'
+														},
+														{
+															data : 'lastName'
+														},
+														{
+															data : 'age'
+														},
+														{
+															data : 'phone'
+														},
+														{
+															data : 'address'
+														},
+														{
+															data : 'historyOfPatient'
+														},
+														{
+															"defaultContent" : "<button id='de' data-toggle='modal' data-target='#myModal'>EDIT</button>"
+														},
+														{
+															"defaultContent" : "<button id='de' onClick='callme()' class='btn btn-danger'>DELETE</button>"
+														} ]
+											});
+							<!--Js for edit and delete-->
+							
+							$('#example tbody')
+							.on(
+									'click',
+									'button',
+									function() {
+										var data = table.row(
+												$(this).parents('tr'))
+												.data();
+										console.log(data);
+
+										if ($(this).text() == "DELETE") {
+											$
+													.ajax({
+														type : "DELETE",
+														url : "/delete/"
+																+ data.id,
+
+														success : function(
+																result) {
+
+															$(
+																	'#example')
+																	.remove();
+															window.location
+																	.reload();
+														},
+														failure : function(
+																errMsg) {
+															console
+																	.log(errMsg
+																			.toString())
+														}
+													});
+										}
+
+										$("#editid").val(data.id);
+										$("#editfirstName").val(
+												data.firstName);
+										$("#editlastName").val(
+												data.lastName);
+										$("#editage").val(data.contact);
+										$("#editsex").val(data.sex);
+										$("#editphone").val(
+												data.phone);
+										$("#editaddress").val(data.id);
+										$("#edithistoryOfPatient").val(data.historyOfPatient);
+									});
+				});
+</script>
+</body>
+</html>
