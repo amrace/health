@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Update Patient</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+</head>
+<body>
+
+	<div class="container">
+
+		<form class="well form-horizontal"
+			th:action="@{'/update/'+${patient.id}}" method="post"
+			id="contact_form" th:object="${patient}">
+			<fieldset>
+
+				<!-- Form Name -->
+				<legend>
+					<center>
+						<h2>
+							<b>Update Patient Record</b>
+						</h2>
+					</center>
+				</legend>
+				<br>
+
+				<!-- Text input-->
+
+				<input type="hidden" th:value="${patient.id}" name="id">
+
+				<div class="form-group">
+					<label class="col-md-4 control-label">First Name</label>
+					<div class="col-md-4 inputGroupContainer">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-user"></i></span> <input name="firstName"
+								placeholder="First Name" class="form-control" type="text"
+								th:field="*{firstName}">
+							<p th:if="${#fields.hasErrors('firstName')}"
+								th:errors="*{firstName}">Incorrect date</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- Text input-->
+				<!--  <div class="form-group">
+      <label class="col-md-4 control-label">Age</label>  
+      <div class="col-md-4 inputGroupContainer">
+      <div class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+      <input  name="age"  placeholder="Age" class="form-control"  type="text" th:text="${patient.firstName}">
+        </div>
+      </div>
+    </div> -->
+
+				<div class="form-group">
+					<label class="col-md-4 control-label">Last Name</label>
+					<div class="col-md-4 inputGroupContainer">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-user"></i></span> <input name="lastName"
+								placeholder="Last Name" class="form-control" type="text"
+								th:field="*{lastName}">
+							<p th:if="${#fields.hasErrors('lastName')}"
+								th:errors="*{lastName}">Incorrect date</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- Text input-->
+
+				<div class="form-group">
+					<label class="col-md-4 control-label">Age</label>
+					<div class="col-md-4 inputGroupContainer">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-user"></i></span> <input name="age"
+								placeholder="Age" class="form-control" type="text"
+								th:field="*{age}">
+							<p th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Incorrect
+								date</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- <div class="form-group"> 
+      <label class="col-md-4 control-label">Sex</label>
+        <div class="col-md-4 selectContainer">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+        <select name="sex"  class="form-control selectpicker">
+          <option value="">Select your gender</option>
+          <option>Male</option>
+          <option>Female</option>
+        </select>
+      </div>
+    </div>
+    </div> -->
+
+
+
+				<!-- Text input-->
+
+				<div class="form-group">
+					<label class="col-md-4 control-label">Phone</label>
+					<div class="col-md-4 inputGroupContainer">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-earphone"></i></span> <input name="phone"
+								placeholder="(+977)" class="form-control" type="text"
+								th:field="*{phone}">
+							<p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Incorrect
+								date</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- Select Basic -->
+				<!-- Text input-->
+
+				<div class="form-group">
+					<label class="col-md-4 control-label">Address</label>
+					<div class="col-md-4 inputGroupContainer">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-user"></i></span> <input name="address"
+								placeholder="Address" class="form-control" type="text"
+								th:field="*{address}">
+							<p th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Incorrect
+								date</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- Text input-->
+				<div class="form-group">
+					<label class="col-md-4 control-label">History Of Patient</label>
+					<div class="col-md-4 inputGroupContainer">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-envelope"></i></span> <input
+								name="historyOfPatient" placeholder="History"
+								class="form-control" type="text" th:field="*{historyOfPatient}">
+							<p th:if="${#fields.hasErrors('historyOfPatient')}"
+								th:errors="*{historyOfPatient}">Incorrect date</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- Success message -->
+				<!-- <div class="alert alert-success" role="alert" id="success_message">Success <i class="glyphicon glyphicon-thumbs-up"></i> Success!.</div> -->
+
+				<!-- Button -->
+				<div class="form-group">
+					<label class="col-md-4 control-label"></label>
+					<div class="col-md-4">
+						<br>
+						&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+						<button type="submit" class="btn btn-warning">
+							&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSUBMIT <span
+								class="glyphicon glyphicon-send"></span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+						</button>
+					</div>
+				</div>
+
+			</fieldset>
+		</form>
+	</div>
+	<div class="col-md-8" th:if="${registrationSuccess}">
+		<div class="alert alert-success" th:text="${message}"></div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+
+	<script>
+		$(document)
+				.ready(
+						function() {
+							$('#contact_form')
+									.bootstrapValidator(
+											{
+												// To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+												feedbackIcons : {
+													valid : 'glyphicon glyphicon-ok',
+													invalid : 'glyphicon glyphicon-remove',
+													validating : 'glyphicon glyphicon-refresh'
+												},
+												fields : {
+													firstName : {
+														validators : {
+															stringLength : {
+																min : 2,
+															},
+															notEmpty : {
+																message : 'Please enter your First Name'
+															}
+														}
+													},
+													lastName : {
+														validators : {
+															stringLength : {
+																min : 2,
+															},
+															notEmpty : {
+																message : 'Please enter your Last Name'
+															}
+														}
+													},
+													age : {
+														validators : {
+															stringLength : {
+																min : 8,
+															},
+															notEmpty : {
+																message : 'Please enter your age in number'
+															}
+														}
+													},
+													phone : {
+														validators : {
+															stringLength : {
+																min : 8,
+															},
+															notEmpty : {
+																message : 'Please enter your phone number'
+															}
+														}
+													},
+													address : {
+														validators : {
+															stringLength : {
+																min : 8,
+															},
+															notEmpty : {
+																message : 'Please confirm your address'
+															}
+														}
+													},
+													historyOfPatient : {
+														validators : {
+															notEmpty : {
+																message : 'Please enter history of patient'
+															},
+															emailAddress : {
+																message : 'Please enter a valid Email Address'
+															}
+														}
+													},
+													contact_no : {
+														validators : {
+															stringLength : {
+																min : 12,
+																max : 12,
+																notEmpty : {
+																	message : 'Please enter your Contact No.'
+																}
+															}
+														},
+														department : {
+															validators : {
+																notEmpty : {
+																	message : 'Please select your Department/Office'
+																}
+															}
+														},
+													}
+												}
+											})
+									.on(
+											'success.form.bv',
+											function(e) {
+												$('#success_message')
+														.slideDown({
+															opacity : "show"
+														}, "slow") // Do something ...
+												$('#contact_form').data(
+														'bootstrapValidator')
+														.resetForm();
+
+												// Prevent form submission
+												e.preventDefault();
+
+												// Get the form instance
+												var $form = $(e.target);
+
+												// Get the BootstrapValidator instance
+												var bv = $form
+														.data('bootstrapValidator');
+
+												// Use Ajax to submit form data
+												$
+														.post(
+																$form
+																		.attr('action'),
+																$form
+																		.serialize(),
+																function(result) {
+																	console
+																			.log(result);
+																}, 'json');
+											});
+						});
+	</script>
+
+
+</body>
+</html>

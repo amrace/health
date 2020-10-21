@@ -67,7 +67,7 @@ public class PatientController {
 		  model.addAttribute("registrationSuccess",true);
 		  model.addAttribute("message","User is successfully registered.");
 		  patient.setDate(new Date());
-		  //patient.setBloodpressure(null);
+		  //patient.getBloodpressure().add("",""); 
 		  patientrepository.save(patient); 
 		  return "redirect:/getAll"; 
 		  }
