@@ -1,50 +1,78 @@
 /*
  * package com.example.health.patientcontroller;
  * 
- * import java.io.IOException; import java.net.URL;
+ * import java.io.BufferedReader; import java.io.FileNotFoundException; import
+ * java.io.FileReader; import java.io.IOException; import
+ * java.io.InputStreamReader; import java.net.HttpURLConnection; import
+ * java.net.URL; import java.util.List;
  * 
- * import org.springframework.beans.factory.annotation.Autowired;
+ * import org.json.JSONObject; import org.json.simple.parser.JSONParser; import
+ * org.json.simple.parser.ParseException; import
+ * org.springframework.beans.factory.annotation.Autowired; import
+ * org.springframework.stereotype.Controller; import
+ * org.springframework.web.bind.annotation.GetMapping; import
+ * org.springframework.web.bind.annotation.ModelAttribute; import
+ * org.springframework.web.bind.annotation.RequestMapping; import
+ * org.springframework.web.bind.annotation.RestController;
  * 
- * import com.example.health.patientrepository.ParameterRepository; import
- * com.google.gdata.client.spreadsheet.SpreadsheetService; import
- * com.google.gdata.data.docs.SpreadsheetEntry; import
- * com.google.gdata.data.spreadsheet.ListEntry; import
- * com.google.gdata.data.spreadsheet.ListFeed; import
- * com.google.gdata.data.spreadsheet.WorksheetEntry; import
- * com.google.gdata.util.ServiceException;
+ * import com.example.health.model.Parameter; import
+ * com.example.health.model.Patient; import
+ * com.example.health.parameterRepository.ParameterRepo;
  * 
- * public class ParameterController { public static final String
- * GOOGLE_ACCOUNT_USERNAME = "amrace321@gmail.com"; // Fill in google account
- * username. public static final String GOOGLE_ACCOUNT_PASSWORD = "ramdam123";
- * //Fill in google account password. public static final String SPREADSHEET_URL
- * ="https://spreadsheets.google.com/feeds/spreadsheets/1tT3V0VOSpu-eTYRFIFe4tWHOWZc369MoSo9mkGdnUUs";
+ * @RestController
+ * 
+ * @RequestMapping("/parameter") public class ParameterController {
+ * 
+ * @Autowired private ParameterRepo parameterRepository;
  * 
  * 
- * @Autowired public ParameterRepository parameterrepo;
+ * 
+ * public ParameterController(ParameterRepo parameterRepository) { super();
+ * this.parameterRepository = parameterRepository; }
  * 
  * 
- * //Fill in google spreadsheet URI public String getGooglesheet()throws
- * IOException, ServiceException {
  * 
- * SpreadsheetService service = new
- * SpreadsheetService("Print Google Spreadsheet Demo" );
+ * @GetMapping("values") public static void readData() {
  * 
- * // Login and prompt the user to pick a sheet to use.
- * service.setUserCredentials( GOOGLE_ACCOUNT_USERNAME,
- * GOOGLE_ACCOUNT_PASSWORD);
+ * try {
  * 
- * // Load sheet. URL metafeedUrl = new URL(SPREADSHEET_URL); SpreadsheetEntry
- * spreadsheet = service.getEntry(metafeedUrl,SpreadsheetEntry.class); URL
- * listFeedUrl = ((WorksheetEntry) spreadsheet.getWorksheets().get(0)).
- * getListFeedUrl();
  * 
- * // Print entries. ListFeed feed =(ListFeed) service.getFeed(listFeedUrl,
- * ListFeed.class); for(ListEntry entry : feed.getEntries()) {
- * System.out.println("new row"); for(String tag :
- * entry.getCustomElements().getTags()) { System.out.println("     "+tag + ": "
- * + entry.getCustomElements().getValue(tag)); } }
+ * String url
+ * ="https://raw.githubusercontent.com/younginnovations/internship-challenges/master/programming/petroleum-report/data.json";
  * 
- * return ""; }
+ * URL obj = new URL(url); HttpURLConnection con = (HttpURLConnection)
+ * obj.openConnection(); con.setRequestMethod("GET");
+ * 
+ * int responseCode = con.getResponseCode();
+ * System.out.println("\nSending 'GET' request to URL:" +url);
+ * System.out.println("Response code:" +responseCode);
+ * 
+ * BufferedReader in = new BufferedReader(new
+ * InputStreamReader(con.getInputStream())); String inputLine; StringBuffer
+ * response = new StringBuffer(); while ((inputLine = in.readLine()) != null) {
+ * response.append(inputLine); } in.close(); }
+ * System.out.println(response.toString());
+ * 
+ * 
+ * 
+ * //Read JSON response and print
+ * 
+ * JSONObject myResponse = new JSONObject(response.toString());
+ * myResponse.get("statusCode"); Parameter parameter1 = new Parameter();
+ * parameter.setTemperature(myResponse.getString("statusMessage"));
+ * parameterRepository.save(myResponse);
+ * 
+ * 
+ * 
+ * System.out.println("result after Reading JSON Response"); //
+ * System.out.println("statusCode- "+myResponse.getString("statusCode"));
+ * System.out.println("statusMessage- "+myResponse.getString("statusMessage"));
+ * 
+ * 
+ * 
+ * }catch(e){ System }
  * 
  * }
+ * 
+ * //for void method }
  */
