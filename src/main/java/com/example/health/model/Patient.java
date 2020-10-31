@@ -4,10 +4,12 @@ package com.example.health.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,6 +24,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.example.health.parameter.BloodPressure;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity(name="patient")
 public class Patient {
@@ -64,9 +68,11 @@ public class Patient {
    private Date date;
    
    
-@OneToMany(cascade = CascadeType.ALL) 
-@JoinColumn(name = "pb_fid", referencedColumnName = "id")
-List<BloodPressure> bloodpressure = new ArrayList<>();
+@OneToMany(targetEntity = BloodPressure.class, mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+@JsonManagedReference
+//(cascade = CascadeType.ALL) 
+//@JoinColumn(name = "pb_fid", referencedColumnName = "id")
+private Set<BloodPressure> bloodpressure;
    
    
    
@@ -77,15 +83,26 @@ List<BloodPressure> bloodpressure = new ArrayList<>();
    private String humidity;
    
    
-public List<BloodPressure> getBloodpressure() {
-	return bloodpressure;
+   
+   //Constructors
+public Patient() {
+	super();
+	// TODO Auto-generated constructor stub
 }
-public void setBloodpressure(List<BloodPressure> bloodpressure) {
-	this.bloodpressure = bloodpressure;
-}
+
+
+
+//getters and setters
+
 public int getId() {
 	return id;
 }
+public Set<BloodPressure> getBloodpressure() {
+	return bloodpressure;
+}
+
+
+
 public void setId(int id) {
 	this.id = id;
 }

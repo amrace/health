@@ -1,4 +1,3 @@
-<
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
@@ -88,6 +87,7 @@
 				<th>Humidity</th>
 				<th>Action</th>
 				<th>Action</th>
+				<th>BP</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -108,6 +108,10 @@
 							data-target="#exampleModal">Edit</button></a></td>
 				<td><a th:href="@{'/delete/'+${patient.id}}"><button
 							type="button" class="btn btn-danger">Delete</button></a></td>
+				
+				<td><a th:href="@{'/bp/'+${patient.id}}"><button
+							type="button" class="btn btn-primary" data-toggle="modal"
+							data-target="#exampleModal">AddBP</button></a></td> 
 			</tr>
 		</tbody>
 	</table>

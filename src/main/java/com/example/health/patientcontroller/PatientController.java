@@ -42,10 +42,9 @@ public class PatientController {
     
     @Autowired
     private PatientService service;
-
+    
 	
-	  //To get the form 
-		
+	  //To get the registeration form 	
 		  @GetMapping("/register")
 		  public ModelAndView showRegisterForm(ModelAndView
 		  modelAndView) { Patient patient = new Patient();
@@ -55,20 +54,21 @@ public class PatientController {
 		  return modelAndView;
 		  }
 		  
-		  //save the users
-		  
+		  //save the and register form	  
 		  @PostMapping("/register") 
 		  public String register(@Valid @ModelAttribute("patient") Patient patient,BindingResult
 		  bindingResult, Model model) {
 		  
 		  if(bindingResult.hasErrors()) { 
+			  model.addAttribute("error", "The form is not submitted");
 			  return "redirect:/register"; }
+		  else {
 		  
-		  model.addAttribute("registrationSuccess",true);
-		  model.addAttribute("message","User is successfully registered.");
-		  patient.setDate(new Date());
-		  //patient.getBloodpressure().add("",""); 
 		  patientrepository.save(patient); 
+		  } 
+		  model.addAttribute("registrationSuccess",true);
+		  model.addAttribute("message","Patient is successfully registered.");
+		  patient.setDate(new Date());
 		  return "redirect:/getAll"; 
 		  }
 			
@@ -84,18 +84,6 @@ public class PatientController {
 			  
 			  }
 			  
-				
-				  @GetMapping("/getAll/{lastName}") 
-				  public String searchPatientByDate(Model
-				  model, @PathVariable String lastName) { 
-					  List<Patient> patientLastName = service.getPatientByLastName(lastName); 
-				  model.addAttribute("patient", patientLastName);
-				  System.out.println(lastName);
-				  //model.addAttribute("keyword", keyword); return "success"; 
-				  return
-				  "redirect:/getAll";
-				  
-				  }
 				 
 	  
     @GetMapping("/")
@@ -132,30 +120,11 @@ public class PatientController {
     	patient1.setAddress(updatePatient.getAddress());
     	patient1.setPhone(updatePatient.getPhone());
     	patient1.setHistoryOfPatient(updatePatient.getHistoryOfPatient());
-    	
     	patientrepository.save(patient1);
+    	
 		return "redirect:/getAll";
 	}
     
-	
-	  
-    	    
-    
-	/*
-	 * @GetMapping("/search") public ModelAndView
-	 * searchPatients(@RequestParam("searchQuery") String firstName, Principal
-	 * principal, ModelAndView modelAndView){ String email = principal.getName();
-	 * User appUser = userRepository.findByEmail(email); List<Patient> patientList =
-	 * null;
-	 * 
-	 * if(appUser.getRole().equals("ROLE_USER")){ patientList =
-	 * patientrepository.searchItemsByItemNameAndUserId(firstName+"%",
-	 * appUser.getId()); modelAndView.setViewName("report"); } else { patientList =
-	 * patientrepository.searchItemsByItemName(firstName+"%");
-	 * modelAndView.setViewName("user/user-dashboard"); }
-	 * 
-	 * modelAndView.addObject("patient", patientList); return modelAndView; }
-	 */
     
     @GetMapping("/report")
     public ModelAndView getPatientReport( ModelAndView modelAndView ) {

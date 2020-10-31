@@ -1,10 +1,25 @@
 package com.example.health.parameter;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.example.health.model.Patient;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity(name="BloodPressure")
 public class BloodPressure {
@@ -15,43 +30,76 @@ public class BloodPressure {
 	private int id;
 	
 	@Column(name="bloodPressure")
-	private String bloodPressurue;
+	private String bloodPressure;
 	
+	//@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="date")
-	private String date;
+	private Date date;
 	
+	@ManyToOne (optional = false)
+	@JsonBackReference
+	@JoinColumn(name="patientid", insertable=false, updatable=false)
+	private Patient patient;
 	
+	//to insert many bloodpressure value to a single patient
+	private int patientid;
 	
+	  
+	 
 	
-	
-	public BloodPressure(String bloodPressurue, String date) {
+	public int getPatientid() {
+		return patientid;
+	}
+	public void setPatientid(int patientid) {
+		this.patientid = patientid;
+	}
+	@Autowired 
+	public BloodPressure() {
 		super();
-		this.bloodPressurue = bloodPressurue;
-		this.date = date;
-	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getBloodPressurue() {
-		return bloodPressurue;
-	}
-	public void setBloodPressurue(String bloodPressurue) {
-		this.bloodPressurue = bloodPressurue;
-	}
-	public String getDate() {
-		return date;
-	}
-	public void setDate(String date) {
-		this.date = date;
-	}
-	@Override
-	public String toString() {
-		return "BloodPressure [id=" + id + ", bloodPressurue=" + bloodPressurue + ", date=" + date + "]";
+		// TODO Auto-generated constructor stub
 	}
 	
 	
 
+	
+	public Patient getPatient() {
+		return patient;
+	}
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+	//parameter constructors
+	
+	
+	//getters and setters
+	public int getId() {
+		return id;
+	}
+	
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getBloodPressure() {
+		return bloodPressure;
+	}
+	public void setBloodPressure(String bloodPressure) {
+		this.bloodPressure = bloodPressure;
+	}
+	@Override
+	public String toString() {
+		return "BloodPressure [id=" + id + ", bloodPressure=" + bloodPressure + ", date=" + date + ", patient="
+				+ patient + ", patientid=" + patientid + "]";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
