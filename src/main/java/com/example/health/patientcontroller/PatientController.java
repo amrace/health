@@ -21,9 +21,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.health.UserModel.User;
 import com.example.health.model.Patient;
 import com.example.health.parameter.BloodPressure;
+import com.example.health.parameter.BodyWeight;
+import com.example.health.parameter.PulseRate;
+import com.example.health.parameter.RespiratoryRate;
+import com.example.health.parameter.SPO2;
+import com.example.health.parameter.Temperature;
+import com.example.health.parameterRepository.BloodPressureRepository;
+import com.example.health.parameterRepository.BodyWeightRepository;
+import com.example.health.parameterRepository.PulseRateRepository;
+import com.example.health.parameterRepository.RespiratoryRateRepository;
+import com.example.health.parameterRepository.SPO2Repository;
+import com.example.health.parameterRepository.TemperatureRepository;
 import com.example.health.patientService.PatientService;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,9 +51,27 @@ public class PatientController {
     public UserRepository userRepository;
     
     @Autowired
+    public BloodPressureRepository bloodpressureRepo;
+    
+    @Autowired
+    public BodyWeightRepository bodyweightRepo;
+    
+    @Autowired
+    private PulseRateRepository pulserateRepo;
+    
+    @Autowired
+    private RespiratoryRateRepository respiratoryrateRepo;
+    
+    @Autowired
+    private SPO2Repository spo2Repo;
+    
+    @Autowired
+    private TemperatureRepository temperatureRepo;
+    
+    @Autowired
     private PatientService service;
     
-	
+	    
 	  //To get the registeration form 	
 		  @GetMapping("/register")
 		  public ModelAndView showRegisterForm(ModelAndView
@@ -58,18 +86,23 @@ public class PatientController {
 		  @PostMapping("/register") 
 		  public String register(@Valid @ModelAttribute("patient") Patient patient,BindingResult
 		  bindingResult, Model model) {
-		  
+			  patient.setDate(new Date());
+			  patientrepository.save(patient);
 		  if(bindingResult.hasErrors()) { 
 			  model.addAttribute("error", "The form is not submitted");
 			  return "redirect:/register"; }
+		  else if(patientrepository.save(patient)==null){
+			  model.addAttribute("message", "Registeration Failed");
+			  return "redirect:/register";
+		  }
 		  else {
-		  
-		  patientrepository.save(patient); 
+			  
+			 
+			  model.addAttribute("registrationSuccess",true);
+			  model.addAttribute("message","Patient is successfully registered.");
+			  return "redirect:/getAll"; 
 		  } 
-		  model.addAttribute("registrationSuccess",true);
-		  model.addAttribute("message","Patient is successfully registered.");
-		  patient.setDate(new Date());
-		  return "redirect:/getAll"; 
+		  
 		  }
 			
 		  
@@ -118,6 +151,7 @@ public class PatientController {
     	patient1.setLastName(updatePatient.getLastName());
     	patient1.setAge(updatePatient.getAge());
     	patient1.setAddress(updatePatient.getAddress());
+    	patient1.setGender(updatePatient.getGender());
     	patient1.setPhone(updatePatient.getPhone());
     	patient1.setHistoryOfPatient(updatePatient.getHistoryOfPatient());
     	patientrepository.save(patient1);
@@ -126,13 +160,30 @@ public class PatientController {
 	}
     
     
-    @GetMapping("/report")
-    public ModelAndView getPatientReport( ModelAndView modelAndView ) {
+    @GetMapping("/report/{id}")
+    public ModelAndView getPatientReport( ModelAndView modelAndView ,@PathVariable int id) {
+		Patient patient = patientrepository.getOne(id);
 		
-		/*
-		 * (List<Patient>) patientrepository.getPatientById(id);
-		 * modelAndView.addObject("patient", findAll);
-		 */
+		List<BloodPressure> bloodpressure = bloodpressureRepo.findAllByPatient(patient);
+		modelAndView.addObject("bloodpressure", bloodpressure);
+		
+		List <BodyWeight> bodyweight = bodyweightRepo.findAllByPatient(patient);
+		modelAndView.addObject("bodyweight", bodyweight);
+		
+		List <PulseRate> pulserate = pulserateRepo.findAllByPatient(patient);
+		modelAndView.addObject("pulserate", pulserate);
+		
+		List <RespiratoryRate> respiratoryrate = respiratoryrateRepo.findAllByPatient(patient);
+		modelAndView.addObject("respiratoryrate", respiratoryrate);
+		
+		List <SPO2> spo2 = spo2Repo.findAllByPatient(patient);
+		modelAndView.addObject("spo2", spo2);
+		
+		List <Temperature> temperature = temperatureRepo.findAllByPatient(patient);
+		modelAndView.addObject("temperature", temperature);
+		
+		
+		modelAndView.addObject("patient", patient);
     	modelAndView.setViewName("report");
     	return modelAndView;
     }

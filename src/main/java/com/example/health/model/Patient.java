@@ -24,6 +24,11 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.example.health.parameter.BloodPressure;
+import com.example.health.parameter.BodyWeight;
+import com.example.health.parameter.PulseRate;
+import com.example.health.parameter.RespiratoryRate;
+import com.example.health.parameter.SPO2;
+import com.example.health.parameter.Temperature;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -51,7 +56,7 @@ public class Patient {
     //private String sex;
    
    @NotNull
-   @Size(min=4, max=10)
+   //@Size(min=9, max=10, message="Mobile should not exceed 10 digit.")
    @Column(name="phone")
     private String phone;
    
@@ -67,23 +72,31 @@ public class Patient {
    @Column(name="date")
    private Date date;
    
+   @Column(name="gender")
+   private String gender;
    
-@OneToMany(targetEntity = BloodPressure.class, mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+   
+@OneToMany( mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 @JsonManagedReference
-//(cascade = CascadeType.ALL) 
 //@JoinColumn(name = "pb_fid", referencedColumnName = "id")
-private Set<BloodPressure> bloodpressure;
-   
-   
-   
-   
-   private String weight;
-   private String bloodPressure;
-   private String temperature;
-   private String humidity;
-   
-   
-   
+private List<BloodPressure> bloodpressure = new ArrayList<>();
+
+@OneToMany( mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)   
+private List<BodyWeight> bodyweight = new ArrayList<>();   
+
+@OneToMany( mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)   
+private List<PulseRate> pulserate = new ArrayList<>();   
+
+@OneToMany( mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)   
+private List<RespiratoryRate> respiratoryrate = new ArrayList<>();   
+
+@OneToMany( mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)   
+private List<SPO2> spo2 = new ArrayList<>();   
+
+@OneToMany( mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)   
+private List<Temperature> temperature = new ArrayList<>();   
+
+     
    //Constructors
 public Patient() {
 	super();
@@ -97,11 +110,16 @@ public Patient() {
 public int getId() {
 	return id;
 }
-public Set<BloodPressure> getBloodpressure() {
+
+public List<BloodPressure> getBloodpressure() {
 	return bloodpressure;
 }
 
 
+
+public void setBloodpressure(List<BloodPressure> bloodpressure) {
+	this.bloodpressure = bloodpressure;
+}
 
 public void setId(int id) {
 	this.id = id;
@@ -148,38 +166,78 @@ public Date getDate() {
 public void setDate(Date date) {
 	this.date = date;
 }
-public String getWeight() {
-	return weight;
+
+
+
+public String getGender() {
+	return gender;
 }
-public void setWeight(String weight) {
-	this.weight = weight;
+
+
+public void setGender(String gender) {
+	this.gender = gender;
 }
-public String getBloodPressure() {
-	return bloodPressure;
+
+
+
+public List<BodyWeight> getBodyweight() {
+	return bodyweight;
 }
-public void setBloodPressure(String bloodPressure) {
-	this.bloodPressure = bloodPressure;
+
+
+
+public void setBodyweight(List<BodyWeight> bodyweight) {
+	this.bodyweight = bodyweight;
 }
-public String getTemperature() {
+
+
+
+public List<PulseRate> getPulserate() {
+	return pulserate;
+}
+
+
+
+public void setPulserate(List<PulseRate> pulserate) {
+	this.pulserate = pulserate;
+}
+
+
+
+public List<RespiratoryRate> getRespiratoryrate() {
+	return respiratoryrate;
+}
+
+
+
+public void setRespiratoryrate(List<RespiratoryRate> respiratoryrate) {
+	this.respiratoryrate = respiratoryrate;
+}
+
+
+
+public List<SPO2> getSpo2() {
+	return spo2;
+}
+
+
+
+public List<Temperature> getTemperature() {
 	return temperature;
 }
-public void setTemperature(String temperature) {
+
+
+
+public void setTemperature(List<Temperature> temperature) {
 	this.temperature = temperature;
 }
-public String getHumidity() {
-	return humidity;
+
+
+
+public void setSpo2(List<SPO2> spo2) {
+	this.spo2 = spo2;
 }
-public void setHumidity(String humidity) {
-	this.humidity = humidity;
-}
-@Override
-public String toString() {
-	return "Patient [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + ", phone="
-			+ phone + ", address=" + address + ", historyOfPatient=" + historyOfPatient + ", date=" + date + ", weight="
-			+ weight + ", bloodPressure=" + bloodPressure + ", temperature=" + temperature + ", humidity=" + humidity
-			+ "]";
-}
-   
-   
-   
+
+
+
 }

@@ -11,8 +11,12 @@
 	crossorigin="anonymous">
 </head>
 <body>
+	<!-- Success message -->
+			<!-- <div class="alert alert-success" role="alert" id="success_message">
+				Success <i class="glyphicon glyphicon-thumbs-up"></i> Success!.
+			</div> -->
+	
 	<div class="container">
-
 		<form class="well form-horizontal" th:action="@{/register}"
 			method="post" id="contact_form" th:object="${patient}">
 			<fieldset>
@@ -26,19 +30,6 @@
 					</center>
 				</legend>
 				<br>
-
-				<!-- Text input-->
-				<div class="float-right">
-					<label class="col-md-8 control-label">Weight Value</label>
-					<div class="col-md-8 inputGroupContainer">
-						<div class="input-group">
-							<span class="input-group-addon"><i
-								class="glyphicon glyphicon-user"></i></span> <input name="weight"
-								placeholder="weight" class="form-control" type="text"
-								th:text="${patient.weight}">
-						</div>
-					</div>
-				</div>
 
 				<!-- Text input-->
 
@@ -57,18 +48,6 @@
 				</div>
 
 				<!-- Text input-->
-				<div class="float-right">
-					<label class="col-md-8 control-label">Blood Pressure</label>
-					<div class="col-md-8 inputGroupContainer">
-						<div class="input-group">
-							<span class="input-group-addon"><i
-								class="glyphicon glyphicon-user"></i></span> <input
-								name="bloodPressure" placeholder="BP" class="form-control"
-								type="text" th:text="${patient.bloodPressure}">
-						</div>
-					</div>
-				</div>
-
 				<div class="form-group">
 					<label class="col-md-4 control-label">Last Name</label>
 					<div class="col-md-4 inputGroupContainer">
@@ -83,18 +62,6 @@
 					</div>
 				</div>
 
-				<!-- Text input-->
-				<div class="float-right">
-					<label class="col-md-8 control-label">Temperature</label>
-					<div class="col-md-8 inputGroupContainer">
-						<div class="input-group">
-							<span class="input-group-addon"><i
-								class="glyphicon glyphicon-user"></i></span> <input name="temperature"
-								placeholder="temperature" class="form-control" type="text"
-								th:text="${patient.temperature}">
-						</div>
-					</div>
-				</div>
 
 				<!-- Text input-->
 				<div class="form-group">
@@ -126,18 +93,6 @@
 					</div>
 				</div> -->
 
-				<!-- Text input-->
-				<div class="float-right">
-					<label class="col-md-8 control-label">Humidity</label>
-					<div class="col-md-8 inputGroupContainer">
-						<div class="input-group">
-							<span class="input-group-addon"><i
-								class="glyphicon glyphicon-user"></i></span> <input name="humidity"
-								placeholder="humidity" class="form-control" type="text"
-								th:text="${patient.humidity}">
-						</div>
-					</div>
-				</div>
 
 				<!-- Text input-->
 				<div class="form-group">
@@ -171,56 +126,75 @@
 					</div>
 				</div>
 
-				<!-- Text input-->
-				<div class="form-group">
-					<label class="col-md-4 control-label">History Of Patient</label>
-					<div class="col-md-4 inputGroupContainer">
-						<div class="input-group">
-							<span class="input-group-addon"><i
-								class="glyphicon glyphicon-envelope"></i></span> <input
-								name="historyOfPatient" placeholder="History"
-								class="form-control" type="text" th:field="*{historyOfPatient}" required>
-							<p th:if="${#fields.hasErrors('historyOfPatient')}"
-								th:errors="*{historyOfPatient}">Incorrect date</p>
+				<!-- Text -->
+				<div class=" form-group">
+					<label class="col-md-1 control-label">Gender</label>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" th:field="*{gender}"
+							id="option1" value="Male"> <label
+							class="form-check-label" for="option1">Male</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" th:field="*{gender}"
+							id="option2" value="Female"> <label
+							class="form-check-label" for="option2">Female</label>
+					</div>
+
+
+
+
+					<!-- Text input-->
+					<div class="form-group">
+						<label class="col-md-4 control-label">History Of Patient</label>
+						<div class="col-md-4 inputGroupContainer">
+							<div class="input-group">
+								<span class="input-group-addon"><i
+									class="glyphicon glyphicon-envelope"></i></span> <input
+									name="historyOfPatient" placeholder="History"
+									class="form-control" type="text" th:field="*{historyOfPatient}"
+									required>
+								<p th:if="${#fields.hasErrors('historyOfPatient')}"
+									th:errors="*{historyOfPatient}">Incorrect date</p>
+							</div>
 						</div>
 					</div>
-				</div>
 
-
-
-
-				<!-- Success message -->
-				  <!--  <div class="alert alert-success" role="alert" id="success_message">Success <i class="glyphicon glyphicon-thumbs-up"></i> Success!.</div> -->  
-
-				<!-- Button -->
-				<div class="form-group">
-					<label class="col-md-4 control-label"></label>
-					<div class="col-md-4">
-						<br>
-						&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-						<button type="submit" class="btn btn-warning">
-							&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSUBMIT <span
-								class="glyphicon glyphicon-send"></span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-						</button>
+					<!-- Button -->
+					<div class="form-group">
+						<label class="col-md-4 control-label"></label>
+						<div class="col-md-4">
+							<br>
+							&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+							<button type="submit" class="btn btn-warning">
+								&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSUBMIT <span
+									class="glyphicon glyphicon-send"></span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+							</button>
+						</div>
 					</div>
-				</div>
-
 			</fieldset>
-		</form>
+		</form>	
 	</div>
+	
+	
 	<div class="col-md-8" th:if="${registrationSuccess}">
-		<div class="alert alert-success" th:text="${message}"></div>
+		<div class ="alert alert-success" th:text = "${message}" ></div>
+		<p>
+			To go to Login Page Please click here
+			<button class="btn btn-success">
+				<a th:href="@{/login}">Login</a>
+			</button>
+		</p>
 	</div>
+	
+	
+	
+	
+	
 	<!-- /.container -->
 
 
-
-	<!-- <form:label path="gender">Gender:</form:label>
-            <form:radiobutton path="gender" value="Male"/>Male
-            <form:radiobutton path="gender" value="Female"/>Female<br/>
-  
-  <form:label path="note">Note:</form:label>
-            <form:textarea path="note" cols="25" rows="5"/><br/> -->
+		<!-- <form:label path="note">Note:</form:label>
+            <form:textarea path="note" cols="25" rows="5"/><br/>  -->
 
 
 
@@ -237,7 +211,7 @@
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 		crossorigin="anonymous"></script>
 
-	<script>
+<!-- 	<script>
 		$(document)
 				.ready(
 						function() {
@@ -366,6 +340,6 @@
 											});
 						});
 	</script>
-
+ -->
 </body>
 </html>

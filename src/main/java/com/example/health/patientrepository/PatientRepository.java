@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.example.health.model.Patient;
+import com.example.health.parameter.BloodPressure;
 
 @Repository
 public interface PatientRepository extends JpaRepository<Patient, Integer> {
@@ -22,5 +23,7 @@ public interface PatientRepository extends JpaRepository<Patient, Integer> {
 	
 	
 	public List <Patient> findPatientByLastName(String lastName);
+	
+	
 	
 }

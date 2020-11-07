@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,23 +37,18 @@ public class BloodPressure {
 	@Column(name="date")
 	private Date date;
 	
-	@ManyToOne (optional = false)
-	@JsonBackReference
-	@JoinColumn(name="patientid", insertable=false, updatable=false)
+	@ManyToOne (optional = false ,fetch =FetchType.LAZY)
+	//@JsonBackReference
+	@JoinColumn(name="patient_id", referencedColumnName = "id")
 	private Patient patient;
 	
 	//to insert many bloodpressure value to a single patient
-	private int patientid;
+	//private int patientid;
 	
 	  
 	 
 	
-	public int getPatientid() {
-		return patientid;
-	}
-	public void setPatientid(int patientid) {
-		this.patientid = patientid;
-	}
+	
 	@Autowired 
 	public BloodPressure() {
 		super();
@@ -85,21 +81,15 @@ public class BloodPressure {
 	public String getBloodPressure() {
 		return bloodPressure;
 	}
+	
+	public Date getDate() {
+		return date;
+	}
 	public void setBloodPressure(String bloodPressure) {
 		this.bloodPressure = bloodPressure;
 	}
-	@Override
-	public String toString() {
-		return "BloodPressure [id=" + id + ", bloodPressure=" + bloodPressure + ", date=" + date + ", patient="
-				+ patient + ", patientid=" + patientid + "]";
-	}
 	
 	
-	
-	
-	
-	
-	
-	
+		
 	
 }
